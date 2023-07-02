@@ -169,6 +169,7 @@ fun AddDrugs(navController: NavController) {
                     image.value.text != ""
                 ) {
                     drugRepository.createDrugs(
+                        0,
                         name.value.text,
                         concent.value.text,
                         type.value.text,

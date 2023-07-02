@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -186,7 +187,9 @@ fun DrugList(navController: NavController) {
                             .height(450.dp)
                     ) {
                         Column(
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
                         ) {
                             IconButton(
                                 modifier = Modifier.align(Alignment.End),
@@ -194,38 +197,62 @@ fun DrugList(navController: NavController) {
                             ) {
                                 Icon(Icons.Default.Cancel, null)
                             }
-                            Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()) {
                                 AsyncImage(
                                     model  = selectedProduct.value!!.image,
                                     contentDescription = null,
-                                    modifier = Modifier.size(200.dp)
+                                    modifier = Modifier
+                                        .size(200.dp)
                                         .align(Alignment.TopCenter)
                                 )
                                 Text(
                                     text = "Medicamento: " + selectedProduct.value!!.name,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 15.sp,
-                                    modifier = Modifier.align(Alignment.Center)
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
                                         .padding(top = 50.dp)
                                 )
                                 Text(
                                     text = "Concentrado: " + selectedProduct.value!!.concent,
                                     fontSize = 12.sp,
-                                    modifier = Modifier.align(Alignment.Center)
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
                                         .padding(top = 100.dp)
                                 )
                                 Text(
                                     text = "Tipo: " + selectedProduct.value!!.type,
                                     fontSize = 12.sp,
-                                    modifier = Modifier.align(Alignment.Center)
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
                                         .padding(top = 150.dp)
                                 )
                                 Text(
                                     text = "Presentacion: " + selectedProduct.value!!.presentation,
                                     fontSize = 12.sp,
-                                    modifier = Modifier.align(Alignment.Center)
+                                    modifier = Modifier
+                                        .align(Alignment.Center)
                                         .padding(top = 200.dp)
                                 )
+                                Button(
+                                    onClick = {
+                                        drugRepository.deleteDrug(selectedProduct.value!!.id)
+                                        { result ->
+                                            if (result is Result.Success) {
+                                                navController.navigate(Route.Drug.route)
+                                            } else {
+                                                Toast.makeText(context, result.message.toString(),
+                                                    Toast.LENGTH_SHORT)
+                                                    .show()
+                                            }
+                                        }
+                                    },
+                                    modifier = Modifier.align(Alignment.BottomCenter)                                  )
+                                {
+                                    Text(text = "Delete")
+                                }
                             }
                         }
                     }

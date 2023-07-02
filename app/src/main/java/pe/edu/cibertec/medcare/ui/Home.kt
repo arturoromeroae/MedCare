@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import pe.edu.cibertec.medcare.data.model.Drug
 import pe.edu.cibertec.medcare.ui.drugs.AddDrugs
 import pe.edu.cibertec.medcare.ui.login.Login
 import pe.edu.cibertec.medcare.ui.signup.SignUp
 import pe.edu.cibertec.medcare.ui.drugs.DrugList
+import pe.edu.cibertec.medcare.ui.drugs.UpdateDrugs
 
 @Composable
 fun Home() {
@@ -42,4 +44,5 @@ sealed class Route(val route: String) {
     object Drug : Route("drug")
     object SignUp : Route("sign_up")
     object AddDrugs : Route("add_drug")
+    object UpdateDrugs : Route("update_drug")
 }
